@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}Order Management{% endblock %}
+
+{% block body %}
+<div class="container my-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Order Management</h2>
+        <div class="btn-group">
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                Filter Orders
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="?status=all">All Orders</a></li>
+                <li><a class="dropdown-item" href="?status=pending">Pending</a></li>
+                <li><a class="dropdown-item" href="?status=shipped">Shipped</a></li>
+                <li><a class="dropdown-item" href="?status=delivered">Delivered</a></li>
+                <li><a class="dropdown-item" href="?status=cancelled">Cancelled</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Product</th>
+                    <th scope="col" class="text-end">Price</th>
+                    <th scope="col">Qty</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Status</th>
+                    <th scope="col" class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td class="fw-semibold">#{{ order.id }}</td>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <span class="fw-medium">{{ order.customer.username }}</span>
+                            <small class="text-muted">{{ order.customer.email }}</small>
+                        </div>
+                    </td>
+                    <td>{{ order.product.product_name }}</td>
+                    <td class="text-end">${{ order.price }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <td>
+                        <img src="{{ order.product.product_picture }}" 
+                             alt="{{ order.product.product_name }}" 
+                             class="img-thumbnail" 
+                             style="width: 50px; height: 50px; object-fit: contain;">
+                    </td>
+                    <td>
+                        <span class="badge 
+                            {% if order.status == 'pending' %}bg-warning text-dark
+                            {% elif order.status == 'shipped' %}bg-info
+                            {% elif order.status == 'delivered' %}bg-success
+                            {% elif order.status == 'cancelled' %}bg-danger
+                            {% else %}bg-secondary
+                            {% endif %}">
+                            {{ order.status|title }}
+                        </span>
+                    </td>
+                    <td class="text-end">
+                        <a href="/update-order/{{ order.id }}" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-edit"></i> Update
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .table {
+        font-size: 0.9rem;
+    }
+    
+    .table th {
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+        color: #495057;
+        background-color: #f8f9fa;
+    }
+    
+    .img-thumbnail {
+        padding: 0.25rem;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+    }
+    
+    .badge {
+        font-weight: 500;
+        padding: 0.35em 0.65em;
+    }
+    
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8rem;
+    }
+</style>
+{% endblock %}

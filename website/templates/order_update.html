@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Order Status{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white border-0">
+                    <h4 class="mb-0">Update Order Status</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" class="needs-validation" novalidate>
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="row g-3">
+                            <div class="col-md-8">
+                                <label for="order_status" class="form-label">Order Status</label>
+                                {{ form.order_status(class="form-select", required=True) }}
+                                <div class="invalid-feedback">
+                                    Please select an order status.
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4 d-flex align-items-end">
+                                {{ form.update(class="btn btn-primary w-100") }}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        border-radius: 0.5rem;
+    }
+    
+    .card-header {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid rgba(0,0,0,.125);
+    }
+    
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+    
+    .form-select {
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
+    }
+    
+    .form-select:focus {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+    }
+    
+    .invalid-feedback {
+        display: none;
+        color: #dc3545;
+    }
+    
+    .was-validated .form-select:invalid ~ .invalid-feedback {
+        display: block;
+    }
+</style>
+
+<script>
+    // Form validation
+    (function() {
+        'use strict'
+        
+        var forms = document.querySelectorAll('.needs-validation')
+        
+        Array.prototype.slice.call(forms)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+{% endblock %}

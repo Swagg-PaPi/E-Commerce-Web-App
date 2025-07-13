@@ -1,0 +1,148 @@
+{% extends 'forms.html' %}
+
+{% block title %}Login | FaZe Shop{% endblock %}
+
+{% block body %}
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <div class="logo">
+                <i class="fas fa-fire"></i>
+                <span>FaZe Shop</span>
+            </div>
+            <h2>Login to start shopping</h2>
+        </div>
+
+        <form method="POST" class="login-form">
+            {{ form.hidden_tag() }}
+            
+            <div class="form-group">
+                {{ form.email(class="form-input", placeholder="Email Address") }}
+            </div>
+            
+            <div class="form-group">
+                {{ form.password(class="form-input", placeholder="Password") }}
+            </div>
+            
+            {{ form.submit(class="login-btn") }}
+            
+            <div class="login-footer">
+                <p>New to FaZe Shop? <a href="/sign-up">Create an account</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary: #000000;
+        --accent: #FF5500;
+        --light-gray: #f5f5f5;
+        --border-gray: #e0e0e0;
+        --text-gray: #666;
+    }
+
+    body {
+        background-color: white;
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+    }
+
+    .login-container {
+        width: 100%;
+        max-width: 380px;
+        padding: 20px;
+    }
+
+    .login-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+    }
+
+    .login-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary);
+    }
+
+    .logo i {
+        color: var(--accent);
+    }
+
+    .login-header h2 {
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: var(--primary);
+        margin: 0;
+    }
+
+    .form-group {
+        margin-bottom: 1.2rem;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 0.9rem;
+        border: 1px solid var(--border-gray);
+        border-radius: 6px;
+        font-size: 0.95rem;
+        transition: all 0.2s;
+    }
+
+    .form-input:focus {
+        border-color: var(--accent);
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(255,85,0,0.1);
+    }
+
+    .login-btn {
+        width: 100%;
+        padding: 0.9rem;
+        background-color: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+        margin-top: 0.5rem;
+    }
+
+    .login-btn:hover {
+        background-color: #e04b00;
+    }
+
+    .login-footer {
+        margin-top: 1.5rem;
+        text-align: center;
+        color: var(--text-gray);
+        font-size: 0.9rem;
+    }
+
+    .login-footer a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .login-footer a:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block title %}Cart{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    <div class="row">
+        {% if cart %}
+        <h1 class="text-center mb-5">Shopping Cart</h1>
+        <div class="col-lg-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body p-4">
+                    {% for item in cart %}
+                    <div class="row align-items-center mb-4">
+                        <div class="col-md-3 text-center">
+                            <img src="{{ item.product.product_picture }}" alt="{{ item.product.product_name }}" 
+                                 class="img-fluid rounded" style="max-height: 150px; width: auto;">
+                        </div>
+                        <div class="col-md-9">
+                            <h4 class="mb-3">{{ item.product.product_name }}</h4>
+                            
+                            <div class="d-flex align-items-center mb-3">
+                                <label class="me-3">Quantity:</label>
+                                <div class="btn-group" role="group">
+                                    <button class="minus-cart btn btn-outline-secondary" pid="{{item.id}}">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <span class="px-3 py-1 border-top border-bottom" id="quantity">{{ item.quantity }}</span>
+                                    <button class="plus-cart btn btn-outline-secondary" pid="{{ item.id }}">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="mb-0 fs-5">₹ <strong>{{ item.product.current_price }}</strong></p>
+                                <button class="remove-cart btn btn-outline-danger btn-sm" pid="{{item.id}}">
+                                    <i class="fas fa-trash-alt me-1"></i>Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% if not loop.last %}<hr class="my-3">{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h3 class="mb-4">Order Summary</h3>
+                    <hr>
+                    
+                    <ul class="list-group list-group-flush mb-4">
+                        {% for item in cart %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2 border-0">
+                            <span class="text-truncate" style="max-width: 150px;">{{item.product.product_name}}</span>
+                            <span class="text-nowrap">
+                                ₹ {{item.product.current_price}} × <span id="quantity{{item.id}}">{{ item.quantity}}</span>
+                            </span>
+                        </li>
+                        {% endfor %}
+                        
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2 border-0">
+                            <span>Subtotal</span>
+                            <span>₹ <span id="amount_tt">{{ amount }}</span></span>
+                        </li>
+                        
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0 pt-2 border-0">
+                            <div>
+                                <strong>Total</strong>
+                                <small class="text-muted d-block">(Including Shipping)</small>
+                            </div>
+                            <span class="fs-5">₹ <strong id="totalamount">{{ total }}</strong></span>
+                        </li>
+                    </ul>
+                    
+                    <div class="d-grid">
+                        <a href="/place-order" class="btn btn-primary py-2">
+                            <i class="fas fa-shopping-bag me-2"></i>Place Order
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12 text-center py-5">
+            <i class="fas fa-shopping-cart fa-4x mb-4 text-muted"></i>
+            <h1 class="mb-3">Your Cart is Empty</h1>
+            <a href="/" class="btn btn-primary px-4">
+                <i class="fas fa-arrow-left me-2"></i>Continue Shopping
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    /* Custom styles for the cart page */
+    .card {
+        border: none;
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+    
+    .img-fluid.rounded {
+        background: #f8f9fa;
+        padding: 0.5rem;
+    }
+    
+    .btn-outline-secondary {
+        border-color: #dee2e6;
+    }
+    
+    .btn-outline-secondary:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .btn-outline-danger {
+        border-color: #dc3545;
+        color: #dc3545;
+    }
+    
+    .btn-outline-danger:hover {
+        background-color: #dc3545;
+        color: white;
+    }
+    
+    .list-group-item {
+        background-color: transparent;
+    }
+    
+    .text-truncate {
+        display: inline-block;
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: bottom;
+    }
+</style>
+{% endblock %}

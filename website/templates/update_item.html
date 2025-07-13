@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Product{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-white border-0">
+            <h3 class="mb-0">Add New Product</h3>
+        </div>
+        <div class="card-body">
+            <form action="" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                {{ form.hidden_tag() }}
+                
+                <div class="row g-3">
+                    <!-- Product Name -->
+                    <div class="col-md-6">
+                        <label for="product_name" class="form-label">Product Name</label>
+                        {{ form.product_name(class="form-control", placeholder="Enter product name", required=True) }}
+                        <div class="invalid-feedback">
+                            Please provide a product name.
+                        </div>
+                    </div>
+                    
+                    <!-- Previous Price -->
+                    <div class="col-md-3">
+                        <label for="previous_price" class="form-label">Previous Price</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            {{ form.previous_price(class="form-control", placeholder="0.00") }}
+                        </div>
+                    </div>
+                    
+                    <!-- Current Price -->
+                    <div class="col-md-3">
+                        <label for="current_price" class="form-label">Current Price</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            {{ form.current_price(class="form-control", placeholder="0.00", required=True) }}
+                            <div class="invalid-feedback">
+                                Please provide a valid price.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Stock Status -->
+                    <div class="col-md-3">
+                        <label for="in_stock" class="form-label">Stock Status</label>
+                        {{ form.in_stock(class="form-select") }}
+                    </div>
+                    
+                    <!-- Flash Sale -->
+                    <div class="col-md-3">
+                        <label for="flash_sale" class="form-label">Flash Sale</label>
+                        {{ form.flash_sale(class="form-select") }}
+                    </div>
+                    
+                    <!-- Product Image -->
+                    <div class="col-md-6">
+                        <label for="product_picture" class="form-label">Product Image</label>
+                        {{ form.product_picture(class="form-control", accept="image/*", required=True) }}
+                        <div class="invalid-feedback">
+                            Please select a product image.
+                        </div>
+                        <small class="text-muted">Recommended size: 500x500 pixels</small>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="col-12 mt-4">
+                        {{ form.update_product(class="btn btn-primary px-4") }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        border-radius: 0.5rem;
+    }
+    
+    .card-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid rgba(0,0,0,.125);
+    }
+    
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+    
+    .form-control, .form-select {
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
+    }
+    
+    .form-control:focus, .form-select:focus {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+    }
+    
+    .input-group-text {
+        background-color: #f8f9fa;
+    }
+    
+    .invalid-feedback {
+        display: none;
+        color: #dc3545;
+    }
+    
+    .was-validated .form-control:invalid ~ .invalid-feedback,
+    .was-validated .form-control:invalid ~ .invalid-feedback {
+        display: block;
+    }
+</style>
+
+<script>
+    // Form validation
+    (function() {
+        'use strict'
+        
+        var forms = document.querySelectorAll('.needs-validation')
+        
+        Array.prototype.slice.call(forms)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+{% endblock %}

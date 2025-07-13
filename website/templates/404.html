@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | 404 Error</title>
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        
+        .error-container {
+            max-width: 600px;
+            padding: 2rem;
+        }
+        
+        .error-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 2rem;
+        }
+        
+        .error-content h1 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .error-content p {
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .home-btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .home-btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <img src="../static/images/404.png" alt="404 Error" class="error-image">
+        <div class="error-content">
+            <h1>Oops! Page Not Found</h1>
+            <p>The page you're looking for doesn't exist or has been moved.</p>
+            <a href="/" class="home-btn">Return to Homepage</a>
+        </div>
+    </div>
+</body>
+</html>

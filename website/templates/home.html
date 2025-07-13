@@ -1,0 +1,356 @@
+{% extends 'base.html' %}
+
+{% block title %}FaZe Shop Home{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block body %}
+<div class="faze-home">
+    <!-- Categories Navigation -->
+    <div class="container mb-4">
+        <div class="row g-3">
+            <div class="col-md-2">
+                <div class="categories-nav shadow-sm">
+                    <h6 class="nav-header">Shop by Category</h6>
+                    <a href="#" class="category-item">
+                        <i class="fas fa-shopping-basket me-2"></i>
+                        <span>Supermarket</span>
+                    </a>
+                    <a href="#" class="category-item">
+                        <i class="fas fa-user me-2"></i>
+                        <span>Health & Beauty</span>
+                    </a>
+                    <a href="#" class="category-item">
+                        <i class="fas fa-home me-2"></i>
+                        <span>Home & Office</span>
+                    </a>
+                    <a href="#" class="category-item">
+                        <i class="fas fa-tshirt me-2"></i>
+                        <span>Fashion</span>
+                    </a>
+                    <a href="#" class="category-item">
+                        <i class="fas fa-laptop me-2"></i>
+                        <span>Electronics</span>
+                    </a>
+                    <a href="#" class="category-item">
+                        <i class="fas fa-gamepad me-2"></i>
+                        <span>Gaming</span>
+                    </a>
+                    <a href="#" class="category-item">
+                        <i class="fas fa-baby me-2"></i>
+                        <span>Baby Products</span>
+                    </a>
+                    <a href="#" class="category-item">
+                        <i class="fas fa-bicycle me-2"></i>
+                        <span>Sporting Goods</span>
+                    </a>
+                    <a href="#" class="category-item">
+                        <i class="fas fa-leaf me-2"></i>
+                        <span>Garden & Outdoor</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Main Carousel - Updated with Sneaker Banner -->
+            <div class="col-md-7">
+                <div class="main-carousel shadow-sm" style="height: 365px; overflow: hidden;">
+                    <img src="{{ url_for('static', filename='images/sneaker_banner.jpg') }}" 
+                         alt="Premium Sneaker Collection" 
+                         class="img-fluid w-100 h-100"
+                         style="object-fit: cover; border-radius: 8px;">
+                </div>
+            </div>
+
+            <!-- Service Cards - Updated with Discount Banner -->
+            <div class="col-md-3">
+                <div class="service-cards">
+                    <div class="service-card shadow-sm">
+                        <div class="service-icon">
+                            <img src="../static/images/help.png" alt="Help Center">
+                        </div>
+                        <div class="service-info">
+                            <h6>HELP CENTER</h6>
+                            <p>Customer care</p>
+                        </div>
+                    </div>
+                    <div class="service-card shadow-sm">
+                        <div class="service-icon">
+                            <img src="../static/images/return.png" alt="Easy Return">
+                        </div>
+                        <div class="service-info">
+                            <h6>EASY RETURN</h6>
+                            <p>Quick Refund</p>
+                        </div>
+                    </div>
+                    <div class="service-card shadow-sm">
+                        <div class="service-icon">
+                            <img src="../static/images/payment.png" alt="Sell on FaZe">
+                        </div>
+                        <div class="service-info">
+                            <h6>SELL ON FAZE</h6>
+                            <p>Vendor Program</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="promo-banner mt-3 shadow-sm" style="height: 200px; overflow: hidden;">
+                    <img src="{{ url_for('static', filename='images/discount_promo.jpg') }}" 
+                         alt="Limited Time Discounts" 
+                         class="img-fluid w-100 h-100"
+                         style="object-fit: cover; border-radius: 8px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="container mb-4">
+        <div class="row g-3">
+            <div class="col-md-3 col-6">
+                <div class="quick-link shadow-sm">
+                    <img src="../static/images/techweek.png" alt="Tech Week">
+                    <span>Tech Week</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="quick-link shadow-sm">
+                    <img src="../static/images/FreeDelivery.png" alt="Free Delivery">
+                    <span>Free Delivery</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="quick-link shadow-sm">
+                    <img src="../static/images/food.png" alt="FaZe Food">
+                    <span>FaZe Food</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="quick-link shadow-sm">
+                    <img src="../static/images/airtime.png" alt="Airtime & Bills">
+                    <span>Airtime & Bills</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="container">
+        <div class="product-grid">
+            <div class="row g-3">
+                {% for item in items %}
+                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                    <div class="product-card shadow-sm">
+                        <div class="product-image">
+                            <img src="{{ item.product_picture }}" alt="{{ item.product_name }}">
+                        </div>
+                        <div class="product-info">
+                            <h6>{{ item.product_name }}</h6>
+                            <div class="price-section">
+                                <span class="current-price">₹ {{ item.current_price }}</span>
+                                <span class="previous-price">₹ {{ item.previous_price }}</span>
+                            </div>
+                            <div class="stock-info">
+                                {{ item.in_stock }} items left
+                            </div>
+                            <a href="/add-to-cart/{{ item.id }}" class="add-to-cart-btn">
+                                Add to Cart
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .faze-home {
+        background-color: #f3f3f3;
+        padding: 20px 0;
+    }
+    
+    .categories-nav {
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+    }
+    
+    .nav-header {
+        color: #333;
+        font-weight: 700;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .category-item {
+        display: flex;
+        align-items: center;
+        padding: 8px 0;
+        color: #555;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+    
+    .category-item:hover {
+        color: #e47911;
+    }
+    
+    .category-item i {
+        width: 20px;
+        text-align: center;
+    }
+    
+    .service-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .service-card {
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .service-icon {
+        margin-right: 15px;
+    }
+    
+    .service-icon img {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .service-info h6 {
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 2px;
+    }
+    
+    .service-info p {
+        font-size: 11px;
+        color: #555;
+        margin: 0;
+    }
+    
+    .quick-link {
+        background: white;
+        border-radius: 8px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 100%;
+    }
+    
+    .quick-link img {
+        width: 30px;
+        height: 30px;
+        margin-bottom: 5px;
+    }
+    
+    .quick-link span {
+        font-size: 12px;
+        font-weight: 600;
+    }
+    
+    .product-card {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.2s;
+    }
+    
+    .product-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .product-image {
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+    }
+    
+    .product-image img {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+    }
+    
+    .product-info {
+        padding: 15px;
+    }
+    
+    .product-info h6 {
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .price-section {
+        margin-bottom: 8px;
+    }
+    
+    .current-price {
+        font-weight: 700;
+        color: #B12704;
+        font-size: 16px;
+    }
+    
+    .previous-price {
+        font-size: 12px;
+        color: #999;
+        text-decoration: line-through;
+        margin-left: 5px;
+    }
+    
+    .stock-info {
+        font-size: 12px;
+        color: #008a00;
+        margin-bottom: 10px;
+    }
+    
+    .add-to-cart-btn {
+        display: block;
+        background: #FFD814;
+        border: none;
+        border-radius: 4px;
+        padding: 5px 10px;
+        font-size: 12px;
+        font-weight: 600;
+        text-align: center;
+        color: #111;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    
+    .add-to-cart-btn:hover {
+        background: #F7CA00;
+    }
+    
+    .shadow-sm {
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* New hover effects for banners */
+    .main-carousel img, .promo-banner img {
+        transition: transform 0.3s ease;
+    }
+    .main-carousel:hover img, .promo-banner:hover img {
+        transform: scale(1.02);
+    }
+</style>
+{% endblock %}
